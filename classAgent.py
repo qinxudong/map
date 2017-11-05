@@ -19,17 +19,17 @@ class Agent:
             for j in range(cell_column):
                 cell_coord = np.array([i, j])
                 dist1 = np.linalg.norm(value_array - cell_coord)
-                if dist1 <= self.search_radius :  # 4为搜索范围
+                if dist1 <= self.search_radius:  # 4为搜索范围
                    agent_cell.append(cell_coord)
         for one in agent_cell:
             point = surveillance_mat[one[0]][one[1]]
             if point == 1:
-                 Q = self.agent_map[one[0]][one[1]] + np.log(self.q/self.p)
+                 Q = self.agent_map[one[0]][one[1]] + np.log(float(self.q)/float(self.p))
                  final_Q = max(min(Q,bound), -bound)
                  self.agent_map[one[0]][one[1]] = final_Q
 
             else:
-                Q = self.agent_map[one[0]][one[1]] + np.log((1-self.q)/(1- self.p))
+                Q = self.agent_map[one[0]][one[1]] + np.log(float(1-self.q)/float(1- self.p))
                 final_Q = max(min(Q, bound), -bound)
                 self.agent_map[one[0]][one[1]] = final_Q
         print(self.agent_map)
@@ -50,10 +50,10 @@ class Agent:
 
     def Fusion(self,list_neighbor01,N,map_array,allagent_list):  # 融合
         d = sum(list_neighbor01)
-        list_w = [1/N, 1/N, 1/N, 1/N, 1/N, 1/N]
+        list_w = [float(1/N), float(1/N),float(1/N),float(1/N),float(1/N),float(1/N)]
 
         k = allagent_list.index(self.name)
-        list_w[k] = 1-((d -1)/N)
+        list_w[k] = 1-(float(d -1)/N)
         w = np.array(list_w)
         mat_w = w * np.array(list_neighbor01)
         i = 0
@@ -78,13 +78,13 @@ class Agent:
             density = np.exp(-2 * np.linalg.norm(point))
             mass += density * area
             centroid_mole += np.array(i) * density *area
-        centroid = centroid_mole / mass
+        centroid = float(centroid_mole) /float(mass)
         speed = centroid - self.agent_local
 
         if np.linalg.norm(speed) <= 3:
             new_speed = speed
         else:
-            new_speed = (3 / np.linalg.norm(speed)) * speed  # 先不考虑除法数值的类型等细节
+            new_speed = (3 /float(np.linalg.norm(speed))) * speed  # 先不考虑除法数值的类型等细节
         self.agent_local += new_speed
 
 
