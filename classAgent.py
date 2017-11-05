@@ -34,7 +34,7 @@ class Agent:
                 self.agent_map[one[0]][one[1]] = final_Q
         print(self.agent_map)
 
-    def Neighbor(self,agent_list,allagent_list):
+    def Neighbor(self,agent_list,allagent_list):   # 邻居
         list_neighbor = []
         for key in agent_list:
             if np.linalg.norm(self.agent_local - np.array(agent_list[key])) <= self.communication_radius:
