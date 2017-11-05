@@ -84,7 +84,7 @@ class Agent:
         if np.linalg.norm(speed) <= 3:
             new_speed = speed
         else:
-            new_speed = (3 /float(np.linalg.norm(speed))) * speed  # 先不考虑除法数值的类型等细节
+            new_speed = (3 /float(np.linalg.norm(speed))) * speed
         self.agent_local += new_speed
 
 
